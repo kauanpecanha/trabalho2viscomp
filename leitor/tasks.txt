@@ -1,0 +1,9 @@
+primeiro passo: cadastro de gabaritos - check(Kauan Peçanha)
+segundo passo: análise de dados das provas realizadas - pendente(Kauan Peçanha)
+terceiro passo: criação de um arquivo csv com todas as informações requeridas - pendente(Moisés)
+
+Lógica Implementada:
+    index.py - Arquivo de execução dos comandos
+    functions.py - Arquivo de armazenamento de funções para uso geral
+    paths.py - Arquivo de armazenamento de informações referentes ao caminho das pastas
+    data - pasta de arquivos destinada ao armazenamento do arquivo excel com as informações de todos os alunos
