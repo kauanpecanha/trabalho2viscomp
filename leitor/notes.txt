@@ -1,0 +1,27 @@
+  # for i in range(1, 26, 1): # loop responsável por exibir cada uma das questões da coluna
+  #   print(f"{200+int((i-1)*(570-200)/25)}:{200+int((i)*(570-200)/25)}")
+  #   cv2.waitKey(1000)
+  
+  # for i in range(1, 6, 1):
+  #   cv2.imshow("", image[200:222, 62+(int((i-1)*(122-62)/5)):62+(int((i)*(122-62)/5))])
+  #   cv2.waitKey(5000)
+  
+  # cv2.imshow("", newImage[200:570, 62:488])
+  # cv2.waitKey(10000)
+  
+  # primeira coluna:
+  # cv2.imshow("", newImage[:, 62:122])
+  # cv2.waitKey(10000)
+
+
+  # segunda coluna:
+  # cv2.imshow("", newImage[:, 148:248])
+  # cv2.waitKey(10000)
+  
+  # terceira coluna
+  # cv2.imshow("", newImage[:, 306:366])
+  # cv2.waitKey(10000)
+
+  # quarta coluna
+  # cv2.imshow("", newImage[:, 428:488])
+  # cv2.waitKey(10000)
