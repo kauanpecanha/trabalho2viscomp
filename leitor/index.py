@@ -2,12 +2,13 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 import cv2
-from functions import identifyTestVersion, checkGabs
-from paths import *
+import pandas as pd
+from functions import checkGabs, getGab
+from paths import provaAgab_path, provaBgab_path, provaCgab_path, provaDgab_path, provaEgab_path
 
-# primeira fase - checkagem de presença de gabaritos
-checkGabs([provaA_path, provaB_path, provaC_path, provaD_path, provaD_path, provaE_path])
+# gabA = cv2.imread(provaAgab_path)
+# cv2.imshow("foto a", gabA)
+# cv2.waitKey(1000)
 
-# segunda fase - identificação da prova, e seu gabarito, para cada uma das versões
-versao = identifyTestVersion(r"./provaA/cartaov2.png")
-print(versao)
+# getGab(provaAgab_path)
+getGab(r"./bubbleSheet.jpg")

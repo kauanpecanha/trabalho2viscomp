@@ -6,9 +6,6 @@ import cv2
 gab = []
 # image = cv2.imread("/content/drive/MyDrive/Two/cartao.png")
 image = []
-
-# função que verifica se todos os arquivos de gabarito foram cadastrados corretamente, devendo ele receber uma list
-# função plenamente funcioanal, favor não mexer
 def checkGabs(paths):
     checker = []
     for i in range(len(paths)):
@@ -21,37 +18,67 @@ def checkGabs(paths):
         print(f"Todos os gabaritos foram cadastrados corretamente.")
 
 
-def defineGabarito(archieve):
-  image = archieve.copy() # copia o arquivo ong recebido
-  for f in ([0, 1, 2]): # para cada uma das colunas
-    g = [188, 310, 432]
-    h = [248, 370, 492]
+def recognizeMarked(image, lin0, lin1, col0, col1):
 
-    for i in range(190, 340, 15): # primeiras parte da coluna
-      recognizeMarked(image[i:i+15, g[f]:h[f]], i, i+15, g[f], h[f])
-    for i in range(340, 430, 14): # segunda parte da coluna
-      recognizeMarked(image[i:i+15, g[f]:h[f]], i, i+15, g[f], h[f])
-    for i in range(440, 550, 15): # terceira parte da coluna
-      recognizeMarked(image[i:i+15, g[f]:h[f]], i, i+15, g[f], h[f])
-    print("\n")
+  newImage = image.copy()
 
+  photoA = newImage[lin0:lin1,col0:col1].copy()
+  photoB = newImage[lin0:lin1,col0:col1].copy()
+  photoC = newImage[lin0:lin1,col0:col1].copy()
+  photoD = newImage[lin0:lin1,col0:col1].copy()
+  photoE = newImage[lin0:lin1,col0:col1].copy()
 
-# identificar a versão da prova - função plenamente funcional favor não mexer
-def identifyTestVersion(archieve_path):
-  # generalGabarito = []
-  # for archieve_path in archieve_path_list:
-  image = cv2.imread(archieve_path)
-  a = [23, 124, 223, 324, 426] # new one
-  b = [32, 133, 232, 333, 435] # new one
+  black = []
+
+  grayA = cv2.cvtColor(photoA, cv2.COLOR_BGR2GRAY)
+  grayB = cv2.cvtColor(photoB, cv2.COLOR_BGR2GRAY)
+  grayC = cv2.cvtColor(photoC, cv2.COLOR_BGR2GRAY)
+  grayD = cv2.cvtColor(photoD, cv2.COLOR_BGR2GRAY)
+  grayE = cv2.cvtColor(photoE, cv2.COLOR_BGR2GRAY)
+
+  _, limA = cv2.threshold(grayA, 230, 255, cv2.THRESH_BINARY)
+  _, limB = cv2.threshold(grayB, 230, 255, cv2.THRESH_BINARY)
+  _, limC = cv2.threshold(grayC, 230, 255, cv2.THRESH_BINARY)
+  _, limD = cv2.threshold(grayD, 230, 255, cv2.THRESH_BINARY)
+  _, limE = cv2.threshold(grayE, 230, 255, cv2.THRESH_BINARY)
+
+  black.append(np.sum(limA == 0))
+  black.append(np.sum(limB == 0))
+  black.append(np.sum(limC == 0))
+  black.append(np.sum(limD == 0))
+  black.append(np.sum(limE == 0))
+
+  indice = np.where(max(black))[0][0]
+  gab.append(indice)
+  return gab
+
+# recognizeMarked(image)
+
+# identificar a versão da prova
+def identifyTestVersion():
+  a = [11, 112, 211, 312, 414]
+  b = [19, 120, 219, 320, 422]
 
   black = []
 
   for i in ([0, 1, 2, 3, 4]):
-    target = image[114:125, a[i]:b[i]]
-    # cv2.imshow(target)
+    target = image[105:115, a[i]:b[i]]
+    cv2.imshow(target)
     gray = cv2.cvtColor(target, cv2.COLOR_BGR2GRAY)
     _, lim = cv2.threshold(gray, 230, 255, cv2.THRESH_BINARY)
     black.append(np.sum(lim == 0))
-
+  
   version = np.where(max(black))[0][0]
-    # generalGabarito.append(defineGabarito(archieve_path)) # armazena o gabairto daquela versão na lista de gabaritos gerais
+  return version
+
+testVersion = identifyTestVersion()
+if(testVersion == 0):
+  print("Prova versão A")
+elif(testVersion == 1):
+  print("Prova versão B")
+elif(testVersion == 2):
+  print("Prova versão C")
+elif(testVersion == 3):
+  print("Prova versão D")
+elif(testVersion == 4):
+  print("Prova versão E")
